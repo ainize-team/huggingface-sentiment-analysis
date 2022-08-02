@@ -1,10 +1,10 @@
 import torch
 import torch.nn.functional as F
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from loguru import logger
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-from models import SentimentAnalysisResponse
+from models import SentimentAnalysisRequest, SentimentAnalysisResponse
 from settings import model_settings
 
 
@@ -29,8 +29,9 @@ id2label = {0: "negative", 1: "neural", 2: "positive"}
 
 
 @app.post("/analysis", response_model=SentimentAnalysisResponse)
-def analysis(text: str):
-    input_ids = tokenizer.encode(text, return_tensors="pt").to(device)
+def analysis(request: Request, data: SentimentAnalysisRequest):
+    text = data.text
+    input_ids = tokenizer.encode(data.text, return_tensors="pt").to(device)
     outputs = model(input_ids)
 
     logits = outputs.logits
