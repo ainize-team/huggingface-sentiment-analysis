@@ -21,7 +21,7 @@ docker build -t <YOUR IMAGE NAME> .
 
 2. Run FastAPI Server
 ```shell
-docker run -it -p 8000:8000 <YOUR IMAGE NAME>
+docker run -d -p 8000:8000 <YOUR IMAGE NAME>
 ```
 
 ### Test Examples
