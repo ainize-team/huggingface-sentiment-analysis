@@ -25,7 +25,7 @@ model.to(device)
 logger.info("Complete model loading")
 
 
-id2label = {0: "negative", 1: "neural", 2: "positive"}
+id2label = model.config.id2label
 
 
 @app.post("/analysis", response_model=SentimentAnalysisResponse)
